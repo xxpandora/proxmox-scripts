@@ -71,7 +71,7 @@ runcmd apt-get -y install --no-install-recommends wget gnupg openssl ca-certific
 
 # Install Python
 log "Installing python"
-runcmd apt-get install -y -q --no-install-recommends python3 python3-pip python3-venv
+runcmd apt-get install -y -q --no-install-recommends python3 python3-pip python-pip python3-venv
 python3 -m venv /opt/certbot/
 if [ "$(getconf LONG_BIT)" = "32" ]; then
   runcmd pip install --no-cache-dir -U cryptography==3.3.2
@@ -157,7 +157,7 @@ echo resolver "$(awk 'BEGIN{ORS=" "} $1=="nameserver" {print ($2 ~ ":")? "["$2"]
 # Generate dummy self-signed certificate.
 if [ ! -f /data/nginx/dummycert.pem ] || [ ! -f /data/nginx/dummykey.pem ]; then
   log "Generating dummy SSL certificate"
-  runcmd 'openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -subj "/O=Nginx Proxy Manager/OU=Dummy Certificate/CN=localhost" -keyout /data/nginx/dummykey.pem -out /data/nginx/dummycert.pem'
+  runcmd 'openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -subj "/O=PegaCDN /OU=Dummy Certificate/CN=localhost" -keyout /data/nginx/dummykey.pem -out /data/nginx/dummycert.pem'
 fi
 
 # Copy app files
@@ -200,7 +200,7 @@ runcmd yarn install --network-timeout=30000
 log "Creating NPM service"
 cat << 'EOF' > /lib/systemd/system/npm.service
 [Unit]
-Description=Nginx Proxy Manager
+Description=PegaCDN
 After=network.target
 Wants=openresty.service
 
@@ -223,10 +223,10 @@ log "Starting services"
 runcmd systemctl start openresty
 runcmd systemctl start npm
 
-IP=$(ip a s dev eth0 | sed -n '/inet / s/\// /p' | awk '{print $2}')
+IP=$(ip a s dev ens192 | sed -n '/inet / s/\// /p' | awk '{print $2}')
 log "Installation complete
 
-\e[0mNginx Proxy Manager should be reachable at the following URL.
+\e[0mPegaCDN should be reachable at the following URL.
 
       http://${IP}:81
 "
