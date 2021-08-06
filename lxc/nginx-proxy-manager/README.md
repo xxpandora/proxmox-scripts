@@ -44,7 +44,7 @@ If you are not using proxmox or want to install this on a existing Alpine box, y
 ***Note:*** _Only Alpine and Ubuntu are currently supported by this script_
 
 ```bash
-wget --no-cache -qO - https://raw.githubusercontent.com/ej52/proxmox/main/lxc/nginx-proxy-manager/setup.sh | sh
+wget --no-cache -qO - https://raw.githubusercontent.com/yahyakadiralbayrak/proxmox-scripts/main/lxc/nginx-proxy-manager/setup.sh | sh
 ```
 
 ## Thanks
