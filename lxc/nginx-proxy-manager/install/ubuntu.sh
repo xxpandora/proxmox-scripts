@@ -76,7 +76,7 @@ python3 -m venv /opt/certbot/
 if [ "$(getconf LONG_BIT)" = "32" ]; then
   runcmd pip install --no-cache-dir -U cryptography==3.3.2
 fi
-runcmd pip install --no-cache-dir cffi certbot
+#runcmd pip install --no-cache-dir cffi certbot
 
 # Install openresty
 log "Installing openresty"
