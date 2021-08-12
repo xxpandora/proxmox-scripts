@@ -94,14 +94,14 @@ runcmd apt-get install -y -q --no-install-recommends nodejs
 runcmd npm install --global yarn
 
 # Get latest version information for nginx-proxy-manager
-log "Checking for latest NPM release"
-runcmd 'wget $WGETOPT -O ./_latest_release $NPMURL/releases/latest'
-_latest_version=$(basename $(cat ./_latest_release | grep -wo "xxpandora/.*.tar.gz") .tar.gz | cut -d'v' -f2)
+#log "Checking for latest NPM release"
+#runcmd 'wget $WGETOPT -O ./_latest_release $NPMURL/releases/latest'
+#_latest_version=$(basename $(cat ./_latest_release | grep -wo "xxpandora/.*.tar.gz") .tar.gz | cut -d'v' -f2)
 
 # Download nginx-proxy-manager source
-log "Downloading NPM v$_latest_version"
-runcmd 'wget $WGETOPT -c $NPMURL/archive/v$_latest_version.tar.gz -O - | tar -xz'
-cd ./nginx-proxy-manager-$_latest_version
+log "Downloading NPM"
+runcmd 'wget $WGETOPT -c $NPMURL/archive/refs/tags/v2.9.7.tar.gz -O - | tar -xz'
+cd ./nginx-proxy-manager-2.9.7
 
 log "Setting up enviroment"
 # Crate required symbolic links
@@ -111,8 +111,8 @@ ln -sf /usr/local/openresty/nginx/sbin/nginx /usr/sbin/nginx
 ln -sf /usr/local/openresty/nginx/ /etc/nginx
 
 # Update NPM version in package.json files
-sed -i "s+0.0.0+#$_latest_version+g" backend/package.json
-sed -i "s+0.0.0+#$_latest_version+g" frontend/package.json
+sed -i "s+0.0.0+#2.9.7+g" backend/package.json
+sed -i "s+0.0.0+#2.9.7+g" frontend/package.json
 
 # Fix nginx config files for use with openresty defaults
 sed -i 's+^daemon+#daemon+g' docker/rootfs/etc/nginx/nginx.conf
@@ -151,14 +151,12 @@ mkdir -p /tmp/nginx/body \
 chmod -R 777 /var/cache/nginx
 chown root /tmp/nginx
 
-# Dynamically generate resolvers file, if resolver is IPv6, enclose in `[]`
-# thanks @tfmm
 echo resolver "$(awk 'BEGIN{ORS=" "} $1=="nameserver" {print ($2 ~ ":")? "["$2"]": $2}' /etc/resolv.conf);" > /etc/nginx/conf.d/include/resolvers.conf
 
 # Generate dummy self-signed certificate.
 if [ ! -f /data/nginx/dummycert.pem ] || [ ! -f /data/nginx/dummykey.pem ]; then
   log "Generating dummy SSL certificate"
-  runcmd 'openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -subj "/O=PegaCDN /OU=Dummy Certificate/CN=localhost" -keyout /data/nginx/dummykey.pem -out /data/nginx/dummycert.pem'
+  runcmd 'openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -subj "/O=PegaCDN /OU=Dummy Certificate/CN=pegacdn" -keyout /data/nginx/dummykey.pem -out /data/nginx/dummycert.pem'
 fi
 
 # Copy app files
