@@ -93,13 +93,13 @@ runcmd wget -O - https://deb.nodesource.com/setup_14.x | bash -
 runcmd apt-get install -y -q --no-install-recommends nodejs
 runcmd npm install --global yarn
 
-# Get latest version information for nginx-proxy-manager
+# Get latest version information for PegaCDN
 #log "Checking for latest NPM release"
 #runcmd 'wget $WGETOPT -O ./_latest_release $NPMURL/releases/latest'
 #_latest_version=$(basename $(cat ./_latest_release | grep -wo "xxpandora/.*.tar.gz") .tar.gz | cut -d'v' -f2)
 
-# Download nginx-proxy-manager source
-log "Downloading NPM"
+# Download PegaCDN Source Code
+log "Downloading PegaCDN Source Code"
 runcmd 'wget $WGETOPT -c $NPMURL/archive/refs/tags/v2.9.7.tar.gz -O - | tar -xz'
 cd ./nginx-proxy-manager-2.9.7
 
@@ -110,7 +110,7 @@ ln -sf /usr/bin/certbot /opt/certbot/bin/certbot
 ln -sf /usr/local/openresty/nginx/sbin/nginx /usr/sbin/nginx
 ln -sf /usr/local/openresty/nginx/ /etc/nginx
 
-# Update NPM version in package.json files
+# Update PegaCDN version in package.json files
 sed -i "s+0.0.0+#2.9.7+g" backend/package.json
 sed -i "s+0.0.0+#2.9.7+g" frontend/package.json
 
