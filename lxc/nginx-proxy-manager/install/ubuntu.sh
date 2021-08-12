@@ -7,7 +7,7 @@ TEMPLOG="$TEMPDIR/tmplog"
 TEMPERR="$TEMPDIR/tmperr"
 LASTCMD=""
 WGETOPT="-t 1 -T 15 -q"
-NPMURL="https://github.com/jc21/nginx-proxy-manager"
+NPMURL="https://github.com/xxpandora/nginx-proxy-manager"
 
 cd $TEMPDIR
 touch $TEMPLOG
@@ -95,7 +95,7 @@ runcmd npm install --global yarn
 # Get latest version information for nginx-proxy-manager
 log "Checking for latest NPM release"
 runcmd 'wget $WGETOPT -O ./_latest_release $NPMURL/releases/latest'
-_latest_version=$(basename $(cat ./_latest_release | grep -wo "jc21/.*.tar.gz") .tar.gz | cut -d'v' -f2)
+_latest_version=$(basename $(cat ./_latest_release | grep -wo "xxpandora/.*.tar.gz") .tar.gz | cut -d'v' -f2)
 
 # Download nginx-proxy-manager source
 log "Downloading NPM v$_latest_version"
