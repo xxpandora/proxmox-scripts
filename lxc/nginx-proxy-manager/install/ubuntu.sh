@@ -71,7 +71,8 @@ runcmd apt-get -y install --no-install-recommends wget gnupg openssl ca-certific
 
 # Install Python
 log "Installing python"
-runcmd apt-get install -y -q --no-install-recommends python3 python3-pip python-pip python3-venv
+runcmd apt -y install python-pip
+runcmd apt-get install -y -q --no-install-recommends python3 python3-pip python3-venv
 python3 -m venv /opt/certbot/
 if [ "$(getconf LONG_BIT)" = "32" ]; then
   runcmd pip install --no-cache-dir -U cryptography==3.3.2
@@ -196,11 +197,11 @@ cd /app
 export NODE_ENV=development
 runcmd yarn install --network-timeout=30000
 
-# Create NPM service
-log "Creating NPM service"
+# Create PegaCDN service
+log "Creating PegaCDN service"
 cat << 'EOF' > /lib/systemd/system/npm.service
 [Unit]
-Description=PegaCDN
+Description=PegaCDN Service
 After=network.target
 Wants=openresty.service
 
