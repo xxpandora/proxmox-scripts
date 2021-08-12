@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 TMP=/tmp/pegacdn_install.sh
-URL=https://raw.githubusercontent.com/ej52/proxmox/main/lxc/nginx-proxy-manager/install
+URL=https://raw.githubusercontent.com/xxpandora/proxmox/main/lxc/nginx-proxy-manager/install
 
 if [ "$(uname)" != "Linux" ]; then
   echo "OS NOT SUPPORTED"
