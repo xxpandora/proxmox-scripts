@@ -110,7 +110,8 @@ cd ./nginx-proxy-manager-2.9.7_pegacdn
 log "Setting up enviroment"
 # Crate required symbolic links
 ln -sf /usr/bin/python3 /usr/bin/python
-ln -sf /usr/bin/certbot /opt/certbot/bin/certbot
+ln -sf /opt/certbot/bin/pip /usr/bin/pip
+ln -sf /opt/certbot/bin/certbot /usr/bin/certbot
 ln -sf /usr/local/openresty/nginx/sbin/nginx /usr/sbin/nginx
 ln -sf /usr/local/openresty/nginx/ /etc/nginx
 
