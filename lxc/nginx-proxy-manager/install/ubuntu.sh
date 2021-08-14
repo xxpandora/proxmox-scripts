@@ -56,6 +56,7 @@ if [ -f /lib/systemd/system/npm.service ]; then
   # Cleanup for new install
   log "Cleaning old files"
   rm -rf /app \
+  /data \
   /var/www/html \
   /etc/nginx \
   /var/log/nginx \
@@ -142,6 +143,7 @@ mkdir -p /tmp/nginx/body \
 /data/custom_ssl \
 /data/logs \
 /data/access \
+/data/letsencrypt-acme-challenge \
 /data/nginx/default_host \
 /data/nginx/default_www \
 /data/nginx/proxy_host \
