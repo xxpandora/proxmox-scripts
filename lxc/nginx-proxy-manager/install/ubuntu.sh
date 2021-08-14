@@ -72,8 +72,12 @@ runcmd apt-get -y install --no-install-recommends wget gnupg openssl ca-certific
 # Install Python
 log "Installing python"
 runcmd apt -y install python-pip
-runcmd apt-get install -y -q --no-install-recommends python3 python3-pip python3-venv
+runcmd apt-get install -y -q --no-install-recommends python3 python3-distutils python3-venv
 python3 -m venv /opt/certbot/
+export PATH=/opt/certbot/bin:$PATH
+grep -qo "/opt/certbot" /etc/environment || echo "$PATH" > /etc/environment
+# Install certbot and python dependancies
+runcmd wget -qO - https://bootstrap.pypa.io/get-pip.py | python -
 if [ "$(getconf LONG_BIT)" = "32" ]; then
   runcmd pip install --no-cache-dir -U cryptography==3.3.2
 fi
