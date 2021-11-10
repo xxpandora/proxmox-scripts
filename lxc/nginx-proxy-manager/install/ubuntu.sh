@@ -106,8 +106,8 @@ runcmd npm install --global yarn
 
 # Download PegaCDN Source Code
 log "Downloading PegaCDN Source Code"
-runcmd 'wget $WGETOPT -c $NPMURL/archive/refs/tags/v2.9.12_pegacdn.tar.gz -O - | tar -xz'
-cd ./nginx-proxy-manager-2.9.12_pegacdn
+runcmd 'wget $WGETOPT -c $NPMURL/archive/refs/tags/v2.9.7_pegacdn.tar.gz -O - | tar -xz'
+cd ./nginx-proxy-manager-2.9.7_pegacdn
 
 log "Setting up enviroment"
 # Crate required symbolic links
@@ -118,8 +118,8 @@ ln -sf /usr/local/openresty/nginx/sbin/nginx /usr/sbin/nginx
 ln -sf /usr/local/openresty/nginx/ /etc/nginx
 
 # Update PegaCDN version in package.json files
-sed -i "s+0.0.0+2.9.12+g" backend/package.json
-sed -i "s+0.0.0+2.9.12+g" frontend/package.json
+sed -i "s+0.0.0+2.9.7+g" backend/package.json
+sed -i "s+0.0.0+2.9.7+g" frontend/package.json
 
 # Fix nginx config files for use with openresty defaults
 sed -i 's+^daemon+#daemon+g' docker/rootfs/etc/nginx/nginx.conf
