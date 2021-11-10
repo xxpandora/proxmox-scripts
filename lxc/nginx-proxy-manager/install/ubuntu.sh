@@ -107,7 +107,7 @@ runcmd npm install --global yarn
 # Download PegaCDN Source Code
 log "Downloading PegaCDN Source Code"
 runcmd 'wget $WGETOPT -c $NPMURL/archive/refs/tags/v2.9.12_pegacdn.tar.gz -O - | tar -xz'
-cd ./nginx-proxy-manager-2.9.7_pegacdn
+cd ./nginx-proxy-manager-2.9.12_pegacdn
 
 log "Setting up enviroment"
 # Crate required symbolic links
